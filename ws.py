@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 import time
 
@@ -10,88 +11,80 @@ import email.message
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+# msg['From'] = 'guilhermemoraes.auto@gmail.com'
+# msg['To'] = 'guilhermemoraes.dev@gmail.com'
+# password = '@123456789@098'
+
+
+def send_email(conteudo):
+    # Configuração
+    host = 'smtp.gmail.com'
+    port = 587
+    user = 'guilhermemoraes.auto@gmail.com'
+    password = '@123456789@098'
+
+    # Criando objeto
+    print('Criando objeto servidor...')
+    server = smtplib.SMTP(host, port)
+
+    # Login com servidor
+    print('Login...')
+    server.ehlo()
+    server.starttls()
+    server.login(user, password)
+
+    # Criando mensagem
+    message = conteudo
+    print('Criando mensagem...')
+    email_msg = MIMEMultipart()
+    email_msg['From'] = user
+    email_msg['To'] = 'guilhermemoraes.dev@gmail.com'
+    email_msg['Subject'] = "=====> PREÇOS ABAIXARAM!"
+    print('Adicionando texto...')
+    email_msg.attach(MIMEText(message, 'plain'))
+
+    # Enviando mensagem
+    print('Enviando mensagem...')
+    server.sendmail(email_msg['From'], email_msg['To'], email_msg.as_string())
+    print('Mensagem enviada!')
+    server.quit()
+
+
 driver = webdriver.Firefox()
 
 url = "https://www.amazon.com.br/gp/product/B084KQBYYM/ref=ewc_pr_img_2?smid=A1ZZFT5FULY4LN&psc=1"
 
 driver.get(url)
 
-# //*[@id="ppd"]
+time.sleep(3)
 
-# from bs4 import BeautifulSoup
-# import requests
-# import smtplib
-# import email.message
+div = driver.find_element(By.XPATH, "//*[@id='ppd']")
 
-# # html_doc = """<html lang="pt-br">
-# # <head>
-# #     <meta charset="UTF-8">
-# #     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-# #     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-# #     <title>beautifulsoup</title>
-# # </head>
-# # <body>
-# #     <p class="title">a</p>
-# #     <p class="story">b</p>
-# #     <p id="link1">c</p>
-# #     <p>d</p>
-# # </body>
-# # </html>"""
+html_content = div.get_attribute('outerHTML')
 
-# # soup = BeautifulSoup(html_doc, 'html.parser')
+soup = BeautifulSoup(html_content, 'html.parser')
 
-# # print(soup.prettify()) # Traz código todo
-# # print(soup.title)  # Traz somente o especificado, porém com as tags
-# # print(soup.title.get_text())  # Traz somente valor dento da tag
-# # print(soup.title.parent.name)  # Exibe o pai da tag name (head)
-# # print(soup.p)  # Exibe o primeiro <p> encontrado
-# # print(soup.p['class'])  # Exibe a class do primeiro <p> encontrado
-# # print(soup.find('p'))  # Mostra o primeiro <p> encontrado
-# # print(soup.find_all('p'))  # Mostra todos os <p>
-# # print(soup.find(id='link1'))  # Mostra o id
+# print(soup.prettify())
 
+items_list = soup.select("span[id^=productTitle]")
+items_price = soup.find_all("span", class_="a-offscreen")
 
-# def send_email():
-#     # guilhermemoraes.auto@gmail.com
+print("Descrição: ", items_list[0].get_text(),
+      " Preço: ", items_price[0].get_text())
 
-#     email_content = """https://www.americanas.com.br/produto/3018509331?epar=bp_pl_00_go_inf-aces_acessorios_geral_gmv&opn=YSMESP&WT.srch=1&gclid=CjwKCAiA3L6PBhBvEiwAINlJ9O7IVGn9IcdRaQXWuFUeh57AZuQia_jY3ansRf1I2vgxbM3ExJ-LFBoC4qwQAvD_BwE&voltagem=BIVOLT"""
-#     msg = email.message.Message()
-#     msg['Subject'] = "=====> PREÇOS ABAIXARAM!"
+driver.close()
 
-#     msg['From'] = 'guilhermemoraes.auto@gmail.com'
-#     msg['To'] = 'guilhermemoraes.dev@gmail.com'
-#     password = '@123456789@098'
-#     msg.add_header('Content-Type', 'text/html')
-#     msg.set_payload(email_content)
+descricao = items_list[0].get_text()
+preco = items_price[0].get_text()
 
-#     s = smtplib.SMTP('smtp.gmail.com: 587')
-#     s.starttls()
-#     s.login(msg['From'], password)
-#     s.sendmail(msg['From'], [msg['To']], msg.as_string())
+preco = preco.replace("R$", "")
+preco = preco.replace(",", ".")
+preco = float(preco)
 
-#     print('E-mail enviado com sucesso.')
+descricao = descricao.rstrip()
 
-
-# prices = []
-
-# # Americanas
-# URL = "https://www.americanas.com.br/produto/3018509331?epar=bp_pl_00_go_inf-aces_acessorios_geral_gmv&opn=YSMESP&WT.srch=1&gclid=CjwKCAiA3L6PBhBvEiwAINlJ9O7IVGn9IcdRaQXWuFUeh57AZuQia_jY3ansRf1I2vgxbM3ExJ-LFBoC4qwQAvD_BwE&voltagem=BIVOLT"
-# headers = {
-#     'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36 OPR/82.0.4227.50"}
-# site = requests.get(URL, headers=headers)
-# soup = BeautifulSoup(site.content, 'html.parser')
-# title = soup.find(
-#     'h1', class_='product-title__Title-sc-1hlrxcw-0 jyetLr').get_text().strip()
-# # <h1 class = "product-title__Title-sc-1hlrxcw-0 jyetLr" > Monitor Acer Predator XB253Q 24.5 240hz 1ms Ips HDMI/DP/USB < /h1 >
-# price = soup.find(
-#     'div', class_='src__BestPrice-sc-1jvw02c-5 cBWOIB priceSales').get_text().strip()
-# # <div class="src__BestPrice-sc-1jvw02c-5 cBWOIB priceSales">R$ <!-- -->2.699,99</div>
-# num_price = price[3:8]
-# num_price = num_price.replace('.', '')
-# num_price = float(num_price)
-# # prices.append(float(num_price))
-
-# if (num_price < 2400):
-#     send_email()
-# else:
-#     print('Ainda muito caro...')
+if preco <= 799:
+    print(corzinha("Envia o email", "green"))
+    send_email(f"{descricao}, o preço está: R${preco}")
+else:
+    print(corzinha("O preco ainda tá alto", "red"))
