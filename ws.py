@@ -51,6 +51,10 @@ def send_email(conteudo):
 
 
 driver = webdriver.Firefox()
+firefox_options = driver.FirefoxOptions()  # Instanciando o "Navegador"
+firefox_options.add_argument('--headless')  # Configurações padrão
+firefox_options.add_argument('--no-sandbox')
+firefox_options.add_argument('--disable-dev-shm-usage')
 
 url = "https://www.amazon.com.br/gp/product/B084KQBYYM/ref=ewc_pr_img_2?smid=A1ZZFT5FULY4LN&psc=1"
 

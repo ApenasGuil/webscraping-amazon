@@ -208,3 +208,40 @@ DevTools listening on ws://localhost:63003/devtools/browser/836c19ca-40ac-46e5-b
 
 ###!!! [Parent][PGPUParent] Error: RunMessage(msgname=PGPU::Msg_ShutdownVR) Channel closing: too late to send/recv, messages will be lost
 
+1644598683387	geckodriver	INFO	Listening on 127.0.0.1:63360
+1644598686438	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "63361" "-no-remote" "-profile" "C:\\Users\\guimo\\AppData\\Local\\Temp\\rust_mozprofileaxNX5L"
+1644598686825	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\guimo\\AppData\\Local\\Temp\\rust_mozprofileaxNX5L\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:63361/devtools/browser/360d7fad-90ce-4a2d-ae0d-4bdbbc0645fe
+1644598688443	Marionette	INFO	Listening on port 63368
+1644598688488	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1644598696293	Marionette	INFO	Stopped listening on port 63368
+1644598715019	geckodriver	INFO	Listening on 127.0.0.1:58063
+1644598718074	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "58064" "-no-remote" "-profile" "C:\\Users\\guimo\\AppData\\Local\\Temp\\rust_mozprofileZdWEMc"
+1644598718460	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\guimo\\AppData\\Local\\Temp\\rust_mozprofileZdWEMc\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:58064/devtools/browser/b0adbfff-3b74-441d-9e9d-407caa7a7079
+1644598719966	Marionette	INFO	Listening on port 58071
+1644598720139	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1644598728148	Marionette	INFO	Stopped listening on port 58071
+[Parent 10536, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1644599431546	geckodriver	INFO	Listening on 127.0.0.1:52527
+1644599434590	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "52528" "-no-remote" "-profile" "C:\\Users\\guimo\\AppData\\Local\\Temp\\rust_mozprofile65o3yq"
+1644599434863	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\guimo\\AppData\\Local\\Temp\\rust_mozprofile65o3yq\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52528/devtools/browser/5ffd8c2f-caea-4d4c-964c-eb7addce7ee1
+1644599436428	Marionette	INFO	Listening on port 52539
+1644599436649	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://images-na.ssl-images-amazon.com/images/I/61XKxrBtDVL.js?AUIClients/AmazonUIjQuery, line 54: Using //@ to indicate sourceURL pragmas is deprecated. Use //# instead
+1644599444064	Marionette	INFO	Stopped listening on port 52539
+1644687841586	geckodriver	INFO	Listening on 127.0.0.1:54876
+1644687844610	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "54877" "-no-remote" "-profile" "C:\\Users\\guimo\\AppData\\Local\\Temp\\rust_mozprofileHqAwu0"
+1644687845433	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\guimo\\AppData\\Local\\Temp\\rust_mozprofileHqAwu0\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:54877/devtools/browser/742571a5-3f30-4618-acf4-270b3e467c00
+1644687847413	Marionette	INFO	Listening on port 54883
+1644687847800	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1644687855660	Marionette	INFO	Stopped listening on port 54883
+
+###!!! [Parent][PGPUParent] Error: RunMessage(msgname=PGPU::Msg_ShutdownVR) Channel closing: too late to send/recv, messages will be lost
+
