@@ -50,11 +50,22 @@ def send_email(conteudo):
     server.quit()
 
 
-driver = webdriver.Firefox()
-firefox_options = driver.FirefoxOptions()  # Instanciando o "Navegador"
-firefox_options.add_argument('--headless')  # Configurações padrão
-firefox_options.add_argument('--no-sandbox')
-firefox_options.add_argument('--disable-dev-shm-usage')
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36"
+
+options = webdriver.ChromeOptions()
+options.headless = True
+options.add_argument(f'user-agent={user_agent}')
+options.add_argument("--window-size=1920,1080")
+options.add_argument('--ignore-certificate-errors')
+options.add_argument('--allow-running-insecure-content')
+options.add_argument("--disable-extensions")
+options.add_argument("--proxy-server='direct://'")
+options.add_argument("--proxy-bypass-list=*")
+options.add_argument("--start-maximized")
+options.add_argument('--disable-gpu')
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('--no-sandbox')
+driver = webdriver.Chrome(executable_path="chromedriver.exe", options=options)
 
 url = "https://www.amazon.com.br/gp/product/B084KQBYYM/ref=ewc_pr_img_2?smid=A1ZZFT5FULY4LN&psc=1"
 
@@ -73,9 +84,6 @@ soup = BeautifulSoup(html_content, 'html.parser')
 items_list = soup.select("span[id^=productTitle]")
 items_price = soup.find_all("span", class_="a-offscreen")
 
-print("Descrição: ", items_list[0].get_text(),
-      " Preço: ", items_price[0].get_text())
-
 driver.close()
 
 descricao = items_list[0].get_text()
@@ -85,9 +93,12 @@ preco = preco.replace("R$", "")
 preco = preco.replace(",", ".")
 preco = float(preco)
 
-descricao = descricao.rstrip()
+descricao = descricao.strip()
 
-if preco <= 799:
+print(corzinha(descricao, "yellow"),
+      "o preço está: R$", corzinha(preco, "yellow"))
+
+if preco <= 300:
     print(corzinha("Envia o email", "green"))
     send_email(f"{descricao}, o preço está: R${preco}")
 else:
